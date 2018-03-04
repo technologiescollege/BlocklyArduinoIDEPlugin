@@ -26,7 +26,7 @@ import processing.app.Editor;
 
 /**
  *
- * @author Tom
+ * @author Tom for Dwenguino
  */
 public class BlocklyArduinoServer {
 

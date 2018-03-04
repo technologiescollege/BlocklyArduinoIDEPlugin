@@ -1,0 +1,12 @@
+mini cours : http://ydisanto.developpez.com/tutoriels/java/runtime-exec/
+
+Installer java JDK.
+Recopier le fichier Arduino/lib/pde.jar
+
+Pour la compilation :
+- créer un rep blocklyarduino (attention minuscules !)
+- y copier BlocklyArduino.java et pde.jar
+- compiler : javac BlocklyArduino.java -cp pde.jar
+- supprimer le pde.jar et le BlocklyArduino.java pour ne garder que BlocklyArduino.class compilé
+- zipper le répertoire blockyarduino, sans options, et le renommer en BlocklyArduino.jar (attention MAJUSCULES !)
+- copier ce jar dans tools/BlocklyArduino/tool

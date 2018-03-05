@@ -23,7 +23,7 @@ import processing.app.tools.Tool;
 
 /**
  *
- * @author Tom for Dwenguino
+ * @author Tom for Dwenguino https://github.com/dwengovzw/Blockly-for-Dwenguino
  */
 public class BlocklyArduinoPlugin implements Tool {
 
@@ -31,8 +31,8 @@ public class BlocklyArduinoPlugin implements Tool {
     
     public static long startTimestamp = 0;
     
-    private final int JFXPANEL_WIDTH_INT = 1100;
-    private final int JFXPANEL_HEIGHT_INT = 700;       
+    private final int JFXPANEL_WIDTH_INT = 1024;
+    private final int JFXPANEL_HEIGHT_INT = 768;       
 
     /**
      * @param args the command line arguments
@@ -50,13 +50,13 @@ public class BlocklyArduinoPlugin implements Tool {
                 Platform.setImplicitExit(false);
                 BlocklyArduinoPlugin plugin = new BlocklyArduinoPlugin();
                 try {
-                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.nimbus.NimbusLookAndFeel");
-                } catch (Exception e) {
+                    UIManager.setLookAndFeel("com.sun.java.swing.plaf.windows.WindowsLookAndFeel");
+                    } catch (Exception e) {
                 }
                 
-                try{
-                plugin.initGUI();
-                }catch(NullPointerException ex){
+                try {
+                    plugin.initGUI();
+                    }catch(NullPointerException ex){
                     //System.out.println(Arrays.toString(Thread.currentThread().getStackTrace()));
                 }
             }
@@ -71,7 +71,7 @@ public class BlocklyArduinoPlugin implements Tool {
         window = new JFrame();
         window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         window.setLayout(new BorderLayout());
-        window.setSize(1200, 700);
+        window.setSize(1024, 768);
         window.setLocationRelativeTo(null);
         window.addWindowListener(new WindowAdapter()
         {
@@ -79,11 +79,9 @@ public class BlocklyArduinoPlugin implements Tool {
             public void windowClosing(WindowEvent e) {
                 SwingUtilities.invokeLater(() -> {
                     Platform.runLater(() -> {
-                        //browser.webEngine.executeScript("BlocklyArduino.tearDownEnvironment()");
-                        //System.out.println("Test");
                         //browser.webEngine.load("about:blank");
                         SwingUtilities.invokeLater(() -> {
-                            //System.out.println("test2");
+                            //System.out.println("test");
                             try{
                                 e.getWindow().dispose();
                             }catch (NullPointerException ex){

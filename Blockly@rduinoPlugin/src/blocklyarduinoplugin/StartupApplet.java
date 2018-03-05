@@ -17,13 +17,13 @@ import processing.app.Editor;
 
 /**
  *
- * @author Tom for Dwenguino
+ * @author Tom for Dwenguino https://github.com/dwengovzw/Blockly-for-Dwenguino
  */
 public class StartupApplet extends JApplet {
 
     private JFXPanel fxContainer;
-    private final int JFXPANEL_WIDTH_INT = 1100;
-    private final int JFXPANEL_HEIGHT_INT = 700;
+    private final int JFXPANEL_WIDTH_INT = 1024;
+    private final int JFXPANEL_HEIGHT_INT = 768;
     private Editor editor;
     private Thread activeThread;
     private Browser browser;
@@ -50,12 +50,11 @@ public class StartupApplet extends JApplet {
 
     private void createScene() {
         browser = new Browser(editor);
-        fxContainer.setScene(new Scene(browser, 800, 600, Color.web("#666970")));
+        fxContainer.setScene(new Scene(browser, 1024, 768, Color.web("#666970")));
     }
     
     @Override
     public void stop() {
-        browser.webEngine.executeScript("BlocklyArduino.tearDownEnvironment()");
         browser.webEngine.load("about:blank");
         SwingUtilities.invokeLater(() -> {
             fxContainer.removeNotify();

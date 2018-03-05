@@ -27,7 +27,7 @@ import javafx.scene.control.Dialog;
 
 /**
  *
- * @author Tom for Dwenguino
+ * @author Tom for Dwenguino https://github.com/dwengovzw/Blockly-for-Dwenguino
  */
 class Browser extends Region {
  
@@ -48,8 +48,7 @@ class Browser extends Region {
                         // The JavaAppp class implements the JavaScript to Java bindings
                         serverObject = new BlocklyArduinoServer(editor, Browser.this.getScene().getWindow());
                             JSObject win = (JSObject) webEngine.executeScript("window");
-                            win.setMember("Blockly@rduinoServer", serverObject);
-                            //win.call("ready"); // execute callback
+                            win.setMember("BlocklyArduinoServer", serverObject);
                         }else{
                     }
                     }
@@ -59,7 +58,6 @@ class Browser extends Region {
         webEngine.getLoadWorker().stateProperty().addListener(changeListener);
         
         webEngine.setOnAlert(new EventHandler<WebEvent<String>>() {
-
             @Override
             public void handle(WebEvent<String> event) {
                 Alert alert = new Alert(AlertType.INFORMATION);
@@ -71,12 +69,12 @@ class Browser extends Region {
         //Set handler to handle browser promp events
         webEngine.setPromptHandler((PromptData param) -> {
             TextInputDialog prompt = new TextInputDialog();
-            prompt.setTitle("Blockly@rduino");
+            prompt.setTitle("BlocklyArduino");
             Optional<String> result = prompt.showAndWait();
             return result.orElse("");
         });        
         
-        webEngine.setConfirmHandler( (String message) -> {
+        webEngine.setConfirmHandler((String message) -> {
             Dialog<ButtonType> confirm = new Dialog<>();
             confirm.getDialogPane().setContentText(message);
             confirm.getDialogPane().getButtonTypes().addAll(ButtonType.YES, ButtonType.NO);
@@ -84,12 +82,11 @@ class Browser extends Region {
             return result ;
         });
         
-        //String baseurl = "file:/" + System.getProperty("user.home");
         String baseurl = "file:" + getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
         baseurl = baseurl.replace("\\", "/");
         baseurl = baseurl.replace("BlocklyArduinoPlugin.jar", "");
         
-        webEngine.load(baseurl + "Blockly@rduino/index_light.html?AIO=IDE");
+        webEngine.load(baseurl + "Blockly@rduino/index_light.html?IDE=on");
 
         //add the web view to the scene
         getChildren().add(browser); 

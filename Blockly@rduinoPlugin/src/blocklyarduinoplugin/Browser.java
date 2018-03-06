@@ -86,7 +86,7 @@ class Browser extends Region {
         baseurl = baseurl.replace("\\", "/");
         baseurl = baseurl.replace("BlocklyArduinoPlugin.jar", "");
         
-        webEngine.load(baseurl + "Blockly@rduino/index_light.html?IDE=on");
+        webEngine.load(baseurl + "Blockly@rduino/index_light.html?lang=fr&IDE=on");
 
         //add the web view to the scene
         getChildren().add(browser); 

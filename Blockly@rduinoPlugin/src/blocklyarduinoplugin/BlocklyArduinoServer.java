@@ -33,6 +33,8 @@ public class BlocklyArduinoServer {
     private String lastOpenedLocation = System.getProperty("user.home");
     private Editor editor;
     private Window ownerWindow;
+    Runnable runHandler;
+    Runnable presentHandler;
     
     public BlocklyArduinoServer(Editor editor, Window ownerWindow){
         this.editor = editor;
@@ -122,7 +124,7 @@ public class BlocklyArduinoServer {
                     BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
  		}        
                 //System.out.println("handleExport");
-                BlocklyArduinoPlugin.editor.handleRun(false, editor.this.presentHandler, editor.this.runHandler);
+                //BlocklyArduinoPlugin.editor.handleRun(false, editor.this.presentHandler, editor.this.runHandler);
                 //System.out.println("Done handling export");
             }
         });

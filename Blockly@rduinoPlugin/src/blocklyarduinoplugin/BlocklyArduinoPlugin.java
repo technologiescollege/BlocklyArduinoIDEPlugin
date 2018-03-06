@@ -17,9 +17,10 @@ import javafx.scene.paint.Color;
 import javax.swing.JFrame;
 import javax.swing.SwingUtilities;
 import javax.swing.UIManager;
-import processing.app.Editor;
 
+import processing.app.Editor;
 import processing.app.tools.Tool;
+import processing.app.Preferences;
 
 /**
  *
@@ -30,15 +31,16 @@ public class BlocklyArduinoPlugin implements Tool {
     public static Editor editor;
     
     public static long startTimestamp = 0;
-    
+
     private final int JFXPANEL_WIDTH_INT = 1024;
     private final int JFXPANEL_HEIGHT_INT = 768;       
-
+    public String portId = Preferences.get("serial.port"); 
     /**
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        BlocklyArduinoPlugin.startApplication();
+        BlocklyArduinoPlugin.startApplication();               
+        
     }
 
     public static void startApplication(){

@@ -124,7 +124,7 @@ public class BlocklyArduinoServer {
                     BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
  		}        
                 //System.out.println("handleExport");
-                //BlocklyArduinoPlugin.editor.handleRun(false, editor.this.presentHandler, editor.this.runHandler);
+                //BlocklyArduinoPlugin.editor.handleRun(false, Editor.this.presentHandler, Editor.this.runHandler);
                 //System.out.println("Done handling export");
             }
         });
@@ -171,6 +171,53 @@ public class BlocklyArduinoServer {
  		}        
                 //System.out.println("handleExport");
                 BlocklyArduinoPlugin.editor.handleExport(false);
+                //System.out.println("Done handling export");
+            }
+        });
+    }
+
+    /**
+     * This method is called from javascript. It lets the user select a location
+     * where to save the generated code to and saves them.
+     *
+     * @param code The Arduino c code generated from the blocks.
+     */
+    public void saveCode(String code) {
+
+        //System.out.println("uploading code");
+        SwingUtilities.invokeLater(new Runnable() {
+            
+            @Override
+            public void run() {
+                //System.out.println("code upload run method started");
+                try{
+                    //System.out.println("make method");
+                    java.lang.reflect.Method method;
+                    //System.out.println("get BlocklyArduinoPlugin class");
+                    Class ed = BlocklyArduinoPlugin.editor.getClass();
+                    //System.out.println("get args");
+                    Class[] cArg = new Class[1];
+                    //System.out.println("set first arg as string");
+                    cArg[0] = String.class;
+                    //System.out.println("get setText method");
+                    method = ed.getMethod("setText", cArg);
+                    //System.out.println("invoke method");
+                    method.invoke(editor, code);
+                }catch(NoSuchMethodException e) {
+                    //System.out.println("nosuchmethod");
+                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
+ 		} catch (IllegalAccessException e) {
+                    //System.out.println("illegalaccess");
+                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
+ 		} catch (SecurityException e) {
+                    //System.out.println("security");
+                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
+ 		} catch (InvocationTargetException e) {
+                    //System.out.println("invocationtarget");
+                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
+ 		}        
+                //System.out.println("handleExport");
+                BlocklyArduinoPlugin.editor.handleSaveAs();
                 //System.out.println("Done handling export");
             }
         });

@@ -1,6 +1,6 @@
 # Arduino IDE plugin for Blockly@rduino
 
-*Plugin to unzip inside Arduino\tool\.
+*Plugin to unzip inside Arduino\tools\.
 It creates a BlocklyArduinoPlugin folder within a jar server file and Blockly@rduino updated (https://github.com/technologiescollege/Blockly-at-rduino).*
 
 ![screen capture](https://raw.githubusercontent.com/technologiescollege/BlocklyArduinoIDEPlugin/master/capture_en.jpg)

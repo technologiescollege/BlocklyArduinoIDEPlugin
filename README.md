@@ -10,6 +10,8 @@ Blockly@rduino s’intègre complètement au logiciel Arduino pour une utilisati
 
 ![enter image description here](https://raw.githubusercontent.com/technologiescollege/BlocklyArduinoIDEPlugin/master/capture_fr.jpg)
 
+![enter image description here](https://raw.githubusercontent.com/technologiescollege/BlocklyArduinoIDEPlugin/master/arborescence.jpg)
+
 Merci par avance des retours via le forum : http://blockly.technologiescollege.fr/forum/index.php
 
 Thanks to Dwenguino, my plugin is totally inspired from their plugin work: https://github.com/dwengovzw/Blockly-for-Dwenguino

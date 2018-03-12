@@ -223,6 +223,120 @@ public class BlocklyArduinoServer {
         });
     }
 
+    /**
+     * This method is called from javascript. It lets the user select a location
+     * where to save the screen capture of the workspace.
+     *
+     * @param code Thecode generated from Blockly@rduino.
+     */
+    public void saveWorkspaceCapture(String code) {
+
+        //System.out.println("uploading code");
+        SwingUtilities.invokeLater(new Runnable() {
+            
+            @Override
+            public void run() {
+                //System.out.println("code upload run method started");
+                try{
+                    //System.out.println("make method");
+                    java.lang.reflect.Method method;
+                    //System.out.println("get BlocklyArduinoPlugin class");
+                    Class ed = BlocklyArduinoPlugin.editor.getClass();
+                    //System.out.println("get args");
+                    Class[] cArg = new Class[1];
+                    //System.out.println("set first arg as string");
+                    cArg[0] = String.class;
+                    //System.out.println("get setText method");
+                    method = ed.getMethod("setText", cArg);
+                    //System.out.println("invoke method");
+                    method.invoke(editor, code);
+                }catch(NoSuchMethodException e) {
+                    //System.out.println("nosuchmethod");
+                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
+ 		} catch (IllegalAccessException e) {
+                    //System.out.println("illegalaccess");
+                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
+ 		} catch (SecurityException e) {
+                    //System.out.println("security");
+                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
+ 		} catch (InvocationTargetException e) {
+                    //System.out.println("invocationtarget");
+                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
+ 		}        
+                //System.out.println("handleExport");
+                BlocklyArduinoPlugin.editor.handleSaveAs();
+                //System.out.println("Done handling export");
+            }
+        });
+    }
+
+    /**
+     * Loads an xml file in which the user saved his blocks.
+     *
+     * @return xml data for the block structure.
+     */
+    public String IDEloadXML() {
+        //System.out.println("loading blocks");
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(lastOpenedLocation));
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("XML files", "*.xml")
+        );
+        File selectedFile = fileChooser.showOpenDialog(ownerWindow);           
+        String blockData = "";
+        //System.out.println("file selected");
+        if (selectedFile != null) {
+            lastOpenedLocation = selectedFile.getParent();
+            //System.out.println("saved last opened location"); 
+            try {
+                BufferedReader fReader = new BufferedReader(new FileReader(selectedFile));
+                blockData = fReader.lines().collect(Collectors.joining());
+                fReader.close();
+            } catch (FileNotFoundException ex) {
+                //System.out.println("filenotfoundexception");
+                Logger.getLogger(BlocklyArduinoServer.class.getName()).log(Level.SEVERE, null, ex);
+            } catch (IOException ex) {
+                //System.out.println("ioexception");
+                Logger.getLogger(BlocklyArduinoServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return blockData;
+    }
+    
+    /**
+     * This method is called from javascript. It lets the user select a location
+     * where to save the blocks to and saves them.
+     *
+     * @param xml The xml structure of the created block program.
+     */
+    public void IDEsaveXML(String xml) {
+        //System.out.println("saving blocks");
+        
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(lastOpenedLocation));
+        fileChooser.setTitle("Save");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("XML files", "*.xml")
+        );
+        File selectedFile = fileChooser.showSaveDialog(ownerWindow);
+        if (selectedFile != null) {
+            if (selectedFile.getName().matches("^.*\\.xml$")) {
+                // filename is OK as-is
+            } else {
+                selectedFile = new File(selectedFile.toString() + ".xml");  // append .xml if "foo.jpg.xml" is OK
+            }
+            lastOpenedLocation = selectedFile.getParent();
+            try {
+                BufferedWriter bWriter = new BufferedWriter(new FileWriter(selectedFile));
+                bWriter.write(xml);
+                bWriter.flush();
+                bWriter.close();
+            } catch (IOException ex) {
+                Logger.getLogger(BlocklyArduinoServer.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     public void exit() {
         Platform.exit();
     }

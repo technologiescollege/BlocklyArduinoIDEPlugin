@@ -5,6 +5,9 @@
  */
 package blocklyarduinoplugin;
 
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.Optional;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -90,6 +93,18 @@ class Browser extends Region {
 
         //add the web view to the scene
         getChildren().add(browser); 
+    }
+    
+    private void SaveFile(String content, File file){
+        try {
+            FileWriter fileWriter = null;             
+            fileWriter = new FileWriter(file);
+            fileWriter.write(content);
+            fileWriter.close();
+        } catch (IOException ex) {
+            //Logger.getLogger(JavaFX_Text.class.getName()).log(Level.SEVERE, null, ex);
+        }
+         
     }
  
     @Override protected void layoutChildren() {

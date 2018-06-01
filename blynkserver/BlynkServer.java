@@ -1,4 +1,4 @@
-package blocklyarduinoupdater;
+package blynkserver;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -9,7 +9,7 @@ import processing.app.Editor;
 import processing.app.tools.Tool;
 
 
-public class BlocklyArduinoUpdater implements Tool {
+public class BlynkServer implements Tool {
   Editor editor;
 
   public void init(Editor editor) {
@@ -17,16 +17,15 @@ public class BlocklyArduinoUpdater implements Tool {
   }
 
   public String getMenuTitle() {
-    return "Blockly@rduino updater";
+    return "Blynk";
   }
 
   public void run() {
 	  try {		
 		String PathToExec = Paths.get(".").toAbsolutePath().normalize().toString();
-		PathToExec += "\\tools\\BlocklyArduinoUpdater\\tool\\";
 		//System.out.println("Current relative path is: " + PathToExec);
         Runtime runtime = Runtime.getRuntime();
-        runtime.exec(new String[] { PathToExec + "server.bat" } );
+		Process p = Runtime.getRuntime().exec("cmd /c \"" + PathToExec + "\\tools\\BlynkServer\\tool\\server.bat" + "\"");
     } catch (IOException e) {
         e.printStackTrace();
     }

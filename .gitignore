@@ -7,3 +7,5 @@
 /BlocklyArduinoUpdater/UpdateApp/build/
 /BlocklyArduinoUpdater/UpdateApp/dist/
 Thumbs.db
+/Blockly@rduinoPlugin/build/
+/Blockly@rduinoPlugin/dist/

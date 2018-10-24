@@ -6,8 +6,10 @@
 package blocklyarduinoplugin;
 
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.BufferedReader;
 import java.util.Optional;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -84,15 +86,36 @@ class Browser extends Region {
             boolean result = confirm.showAndWait().filter(ButtonType.YES::equals).isPresent();
             return result ;
         });
-        
-        String baseurl = "file:" + getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
-        baseurl = baseurl.replace("\\", "/");
-        baseurl = baseurl.replace("BlocklyArduinoPlugin.jar", "");
-        
-        webEngine.load(baseurl + "Blockly@rduino/index_light.html?lang=fr&IDE=on");
-
-        //add the web view to the scene
-        getChildren().add(browser); 
+        String location = getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+        location = location.replace("BlocklyArduinoPlugin.jar", "");
+        File optionFile = new File(location + "BlocklyArduinoPlugin.config");
+        if(optionFile.exists() && optionFile.isFile()) {
+            try{
+                FileReader filereading = new FileReader(optionFile);
+                BufferedReader reader = new BufferedReader(filereading);
+                String line = reader.readLine();
+                reader.close();
+                filereading.close();
+                //System.out.println(line);
+                if (line == null) line = "";                
+                String baseurl = "file:" + getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+                baseurl = baseurl.replace("\\", "/");
+                baseurl = baseurl.replace("BlocklyArduinoPlugin.jar", "");
+                webEngine.load(baseurl + "Blockly@rduino/index_IDE.html" + line);
+                getChildren().add(browser);
+            }
+            catch (IOException exception){
+                System.out.println("error reading");
+            }
+        }else
+            {
+            String baseurl = "file:" + getClass().getProtectionDomain().getCodeSource().getLocation().getPath();
+            baseurl = baseurl.replace("\\", "/");
+            baseurl = baseurl.replace("BlocklyArduinoPlugin.jar", "");
+            webEngine.load(baseurl + "Blockly@rduino/index_IDE.html");
+            //add the web view to the scene
+            getChildren().add(browser);
+        }
     }
     
     private void SaveFile(String content, File file){

@@ -9,3 +9,6 @@
 Thumbs.db
 /Blockly@rduinoPlugin/build/
 /Blockly@rduinoPlugin/dist/
+/Blockly@rduinoPlugin/src/blocklyarduinoplugin/target/
+/nbproject/private/
+/Blockly@rduinoPlugin/src/target/

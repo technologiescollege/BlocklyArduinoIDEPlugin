@@ -5,6 +5,7 @@
  */
 package blocklyarduinoplugin;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
@@ -12,13 +13,19 @@ import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.stream.Collectors;
 import javafx.application.Platform;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.stage.FileChooser;
 import javafx.stage.Window;
+import javafx.scene.Scene;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
+import javax.imageio.ImageIO;
 import javax.swing.SwingUtilities;
 
 import java.lang.reflect.InvocationTargetException;
@@ -230,44 +237,25 @@ public class BlocklyArduinoServer {
      * @param code Thecode generated from Blockly@rduino.
      */
     public void saveWorkspaceCapture(String code) {
-
-        //System.out.println("uploading code");
-        SwingUtilities.invokeLater(new Runnable() {
-            
-            @Override
-            public void run() {
-                //System.out.println("code upload run method started");
-                try{
-                    //System.out.println("make method");
-                    java.lang.reflect.Method method;
-                    //System.out.println("get BlocklyArduinoPlugin class");
-                    Class ed = BlocklyArduinoPlugin.editor.getClass();
-                    //System.out.println("get args");
-                    Class[] cArg = new Class[1];
-                    //System.out.println("set first arg as string");
-                    cArg[0] = String.class;
-                    //System.out.println("get setText method");
-                    method = ed.getMethod("setText", cArg);
-                    //System.out.println("invoke method");
-                    method.invoke(editor, code);
-                }catch(NoSuchMethodException e) {
-                    //System.out.println("nosuchmethod");
-                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
- 		} catch (IllegalAccessException e) {
-                    //System.out.println("illegalaccess");
-                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
- 		} catch (SecurityException e) {
-                    //System.out.println("security");
-                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
- 		} catch (InvocationTargetException e) {
-                    //System.out.println("invocationtarget");
-                    BlocklyArduinoPlugin.editor.getCurrentTab().setText(code);
- 		}        
-                //System.out.println("handleExport");
-                BlocklyArduinoPlugin.editor.handleSaveAs();
-                //System.out.println("Done handling export");
-            }
-        });
+        
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setInitialDirectory(new File(lastOpenedLocation));
+        fileChooser.setTitle("Capture");
+        fileChooser.getExtensionFilters().addAll(
+                new FileChooser.ExtensionFilter("image", "*.svg")
+        );
+        
+        File selectedFile = fileChooser.showSaveDialog(ownerWindow);
+        if (selectedFile != null) {
+                try{                    
+                    FileWriter fileWriter = null;             
+                    fileWriter = new FileWriter(selectedFile);
+                    fileWriter.write(code);
+                    fileWriter.close();
+                } catch (IOException ex) {
+                    //Logger.getLogger(JavaFX_Text.class.getName()).log(Level.SEVERE, null, ex);
+                }
+        }
     }
 
     /**
@@ -280,7 +268,7 @@ public class BlocklyArduinoServer {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setInitialDirectory(new File(lastOpenedLocation));
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("XML files", "*.xml")
+                new FileChooser.ExtensionFilter("Blockly@rduino", "*.B@")
         );
         File selectedFile = fileChooser.showOpenDialog(ownerWindow);           
         String blockData = "";
@@ -316,14 +304,14 @@ public class BlocklyArduinoServer {
         fileChooser.setInitialDirectory(new File(lastOpenedLocation));
         fileChooser.setTitle("Save");
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("XML files", "*.xml")
+                new FileChooser.ExtensionFilter("Blockly@rduino", "*.B@")
         );
         File selectedFile = fileChooser.showSaveDialog(ownerWindow);
         if (selectedFile != null) {
-            if (selectedFile.getName().matches("^.*\\.xml$")) {
+            if (selectedFile.getName().matches("^.*\\.B@$")) {
                 // filename is OK as-is
             } else {
-                selectedFile = new File(selectedFile.toString() + ".xml");  // append .xml if "foo.jpg.xml" is OK
+                selectedFile = new File(selectedFile.toString() + ".B@");  // append .B@ if "foo.jpg.xml" is OK
             }
             lastOpenedLocation = selectedFile.getParent();
             try {

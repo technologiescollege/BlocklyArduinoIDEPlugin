@@ -1,5 +1,6 @@
 
 
+
 # Arduino IDE plugin for Blockly@rduino
 
 ## Presentation
@@ -21,28 +22,20 @@ Blockly@rduino s’intègre complètement au logiciel Arduino pour une utilisati
 
 ## How to install
 
-I created an automatic updater for the plugin (jar file) and to help maintaining Blockly@rduino up-to-date:
- - download updater: https://github.com/technologiescollege/BlocklyArduinoIDEPlugin/raw/master/BlocklyArduinoUpdater.7z
+I created jar file just to unzip:
+ - download zip file: [https://github.com/technologiescollege/BlocklyArduinoIDEPlugin/blob/master/BlocklyArduinoPlugin.zip](https://github.com/technologiescollege/BlocklyArduinoIDEPlugin/blob/master/BlocklyArduinoPlugin.zip)
  - unzip it in tools folder, like you can see in 'Tools folder picture'
  - launch IDE Arduino
  - run it from 'tools' menu
- ![enter image description here](https://raw.githubusercontent.com/technologiescollege/BlocklyArduinoIDEPlugin/master/updater1.jpg)
- - check which update you want
- ![enter image description here](https://raw.githubusercontent.com/technologiescollege/BlocklyArduinoIDEPlugin/master/updater2.jpg)
- - let updater do its job
 
 ## Comment l'installer
 
-Je vous ai créé un système de mise à jour automatique qui gère le plugin (fichier jar exécuté) et Blockly@rduino :
+Je vous ai créé un plugin (fichier jar exécuté) pour lancer Blockly@rduino :
 
- - télécharger l'updater :
-   https://github.com/technologiescollege/BlocklyArduinoIDEPlugin/raw/master/BlocklyArduinoUpdater.7z   
+ - télécharger le zip : [https://github.com/technologiescollege/BlocklyArduinoIDEPlugin/blob/master/BlocklyArduinoPlugin.zip](https://github.com/technologiescollege/BlocklyArduinoIDEPlugin/blob/master/BlocklyArduinoPlugin.zip)
  - dézipper dans le dossier 'tools', comme dans la capture d'écran précédente du 'dossier tools'   
  - lancer l'EDI Arduino
- - lancer l'updater depuis le menu 'outils'
- ![enter image description here](https://raw.githubusercontent.com/technologiescollege/BlocklyArduinoIDEPlugin/master/updater1.jpg)
- - cocher les mises à jour que vous désirez faire
- ![enter image description here](https://raw.githubusercontent.com/technologiescollege/BlocklyArduinoIDEPlugin/master/updater2.jpg)
+ - lancer depuis le menu 'outils'
  - laisser faire...
 
 ## HELP
